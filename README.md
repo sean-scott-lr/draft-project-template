@@ -1,3 +1,12 @@
+Note: To templatize as a maven archetype: https://www.marosmars.com/blog/maven-archetype-tutorial
+Key points are that to use a variable in a path or filename you have to surround the variable name with ```__VAR__```
+and to use the variable in a file, you surround with ${var}.  This means that the code in the archetype must be generated before it is valid Java ( since the file and package wont match in its raw form ).
+Also, all files that are to become part of the generated project should be located within ```src/main/resources/archetype-resources/```
+
+
+giter8 http://www.foundweekends.org/giter8/template.html  Uses $var$ around file/directory names and within them too.  However conditionals are expressions in the path and code, so it looks like for any sort of advanced usage... a project will have to generated before you know if the template code works or note as well.
+Also, all files that are to become part of the generated project should be located within ```src/main/g8```
+
 TODO: (Dec 6th) Json Logging support  https://github.com/quarkusio/quarkus/pull/5585
 
 Tokens I am currently using in the template

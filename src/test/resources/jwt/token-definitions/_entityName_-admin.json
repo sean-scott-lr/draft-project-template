@@ -1,0 +1,17 @@
+{
+  "iss": "https://www.logrhythm.com/_artifactName_",
+  "sub": "fake1",
+  "jti": "jwt-1",
+  "upn": "joe.king@logrhythm.com",
+  "aud": "_serviceName_",
+  "preferred_username": "jking",
+  "birthdate": "1972-07-13",
+  "family_name": "King",
+  "given_name": "Joe",
+  "groups": [
+    "_entityEntitlement_-create",
+    "_entityEntitlement_-read",
+    "_entityEntitlement_-update",
+    "_entityEntitlement_-delete"
+  ]
+}

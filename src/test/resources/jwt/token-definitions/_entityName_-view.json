@@ -1,0 +1,14 @@
+{
+  "iss": "https://www.logrhythm.com/_artifactName_",
+  "sub": "fake-2",
+  "jti": "jwt-2",
+  "upn": "robyn.banks@logrhythm.com",
+  "aud": "_serviceName_",
+  "preferred_username": "rbanks",
+  "birthdate": "1977-07-13",
+  "family_name": "Banks",
+  "given_name": "Robyn",
+  "groups": [
+    "_entityEntitlement_-read"
+  ]
+}

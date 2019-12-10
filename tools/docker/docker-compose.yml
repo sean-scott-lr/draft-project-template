@@ -1,0 +1,71 @@
+version: '3.7'
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+  postgres:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_ROOT_PASSWORD: postgres
+      POSTGRES_DB: _dbSchemaName_
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  infinispan:
+    image: "infinispan/server:10.0.1.Final"
+    ports:
+      - "11222:11222"
+    environment:
+      USER: infinispan
+      PASS: infinispan
+
+  jaeger:
+      image: "jaegertracing/all-in-one:latest"
+      ports:
+        - "5775:5775/udp"
+        - "6831:6831/udp"
+        - "6832:6832/udp"
+        - "5778:5778"
+        - "16686:16686"
+        - "14268:14268"
+        - "9411:9411"
+      environment:
+        COLLECTOR_ZIPKIN_HTTP_PORT: 9411
+
+  dockerhost:
+    image: qoomon/docker-host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    deploy:
+      resources:
+        limits:
+          memory: 8M
+    restart: on-failure
+
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ../grafana/provisioning/:/etc/grafana/provisioning/
+      - grafana_data:/var/lib/grafana
+    env_file:
+      - ../grafana/config.monitoring
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus

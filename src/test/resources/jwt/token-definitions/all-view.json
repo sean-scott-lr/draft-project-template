@@ -1,0 +1,14 @@
+{
+  "iss": "https://www.logrhythm.com/_artifactName_",
+  "sub": "fake-4",
+  "jti": "jwt-4",
+  "upn": "jerry.atrick@logrhythm.com",
+  "aud": "_serviceName_",
+  "preferred_username": "jatrick",
+  "birthdate": "1987-07-13",
+  "family_name": "Atrick",
+  "given_name": "Jerry",
+  "groups": [
+    "_entityEntitlement_-read"
+  ]
+}

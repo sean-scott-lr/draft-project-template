@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "lr-core-v1.proto";
+import "google/protobuf/timestamp.proto";
+
+option java_multiple_files = true;
+option java_package = "com.logrhythm.svc._servicePackage_.v1.grpc";
+
+package logrhythm.svc._servicePackage.v1;
+
+service _serviceClass_Service {
+  rpc Get_entityClass_ (logrhythm.common.v1.Identifier) returns (Unary_entityClass_Response) {
+  }
+  rpc Create_entityClass_ (_entityClass_) returns (Unary_entityClass_Response) {
+  }
+}
+
+message _entityClass_ {
+  logrhythm.common.v1.Identifier id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  int32 age = 4;
+  google.protobuf.Timestamp createdOn = 5;
+  google.protobuf.Timestamp updatedOn = 6;
+}
+
+message Paged_entityClass_ResponseV1 {
+  logrhythm.common.v1.LimitOffsetPagedResponseHeader info = 1;
+  repeated _entityClass_ content = 2;
+}
+
+
+message Unary_entityClass_Response {
+  logrhythm.common.v1.UnaryResponseHeader info = 1;
+  _entityClass_ content = 2;
+}
+
+
+
+
+

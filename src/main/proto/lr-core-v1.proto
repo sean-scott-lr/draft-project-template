@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.logrhythm.core.v1.grpc";
+option optimize_for = CODE_SIZE;
+
+package logrhythm.common.v1;
+
+message Identifier {
+  string tenantId = 1;
+  string id = 2;
+}
+
+message LimitOffsetPaginationDetail{
+  int32 pageSize = 1;
+  int32 pageNumber = 2;
+  int32 numberOfElements = 3;
+  int32 totalElements = 4;
+}
+
+message LimitOffsetPagedResponseHeader {
+  string requestId = 1;
+  LimitOffsetPaginationDetail paging = 2;
+}
+
+message UnaryResponseHeader {
+  string requestId = 1;
+}

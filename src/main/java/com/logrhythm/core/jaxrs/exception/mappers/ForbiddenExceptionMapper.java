@@ -15,7 +15,9 @@ public class ForbiddenExceptionMapper extends BaseExceptionMapper
     return javax.ws.rs.core.Response.status(javax.ws.rs.core.Response.Status.FORBIDDEN)
         .type(MediaType.APPLICATION_JSON)
         .entity(
-            Response.error(javax.ws.rs.core.Response.Status.FORBIDDEN.getStatusCode(), e.getLocalizedMessage()))
+            Response.error(
+                javax.ws.rs.core.Response.Status.FORBIDDEN.getStatusCode(),
+                e.getLocalizedMessage()))
         .build();
   }
 }

@@ -6,9 +6,9 @@ import java.util.Locale;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.ws.rs.core.Response.Status;
 
 public class BaseExceptionMapper {
 
@@ -34,10 +34,10 @@ public class BaseExceptionMapper {
   protected boolean isSupported(Locale l) {
 
     // TODO: We need to support multiple locales.
-    boolean supported =  l.getLanguage().equals("en");
+    boolean supported = l.getLanguage().equals("en");
 
-    if( !supported ){
-      LOG.debug( "Unsupported locale " + l.getLanguage() + " requested.");
+    if (!supported) {
+      LOG.debug("Unsupported locale " + l.getLanguage() + " requested.");
     }
 
     return supported;
@@ -46,9 +46,10 @@ public class BaseExceptionMapper {
   protected javax.ws.rs.core.Response createResponse(Throwable t) {
     return javax.ws.rs.core.Response.status(Status.INTERNAL_SERVER_ERROR)
         .type(MediaType.APPLICATION_JSON)
-        .entity( Response.error(
-            Status.INTERNAL_SERVER_ERROR.getStatusCode(),
-            Status.INTERNAL_SERVER_ERROR.getReasonPhrase()))
+        .entity(
+            Response.error(
+                Status.INTERNAL_SERVER_ERROR.getStatusCode(),
+                Status.INTERNAL_SERVER_ERROR.getReasonPhrase()))
         .build();
   }
 

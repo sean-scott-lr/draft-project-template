@@ -1,11 +1,8 @@
 package com.logrhythm.svc._servicePackage_.v1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.logrhythm.core.model.v1.Identifier;
+import com.logrhythm.core.model.v1.BaseModel;
 import com.logrhythm.core.validation.constraints.HasSubstring;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -14,36 +11,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="_entityTableName_")
-public class _entityClass_  {
+@Table(name = "_entityTableName_")
+public class _entityClass_ extends BaseModel {
 
-  @EmbeddedId
-  @JsonUnwrapped
-  private Identifier id;
-
-  @NotBlank
-  @Column(name = "first_name")
+  //Please dont annotate fields, annotate the getters
   private String firstName;
-
-  // @NotBlank(message = "{com.logrhythm.validation.constraints.Custom.message}")
-  @HasSubstring("foo")
-  @Column(name = "last_name")
-  private String lastName = "bar";
-
-  @Min(21)
-  @Max(30)
-  @NotNull
-  @Column(name = "age")
+  private String lastName;
   private Integer age;
 
-  public Identifier getId() {
-    return id;
-  }
-
-  public void setId(Identifier id) {
-    this.id = id;
-  }
-
+  @Column(name = "first_name")
+  @NotBlank
   public String getFirstName() {
     return firstName;
   }
@@ -52,6 +29,8 @@ public class _entityClass_  {
     this.firstName = firstName;
   }
 
+  @Column(name = "last_name")
+  @HasSubstring("foo")
   public String getLastName() {
     return lastName;
   }
@@ -60,15 +39,15 @@ public class _entityClass_  {
     this.lastName = lastName;
   }
 
+  @Column(name = "age")
+  @Min(21)
+  @Max(30)
+  @NotNull
   public Integer getAge() {
     return age;
   }
 
   public void setAge(Integer age) {
     this.age = age;
-  }
-
-  public String toString(){
-    return "id=" + id;
   }
 }

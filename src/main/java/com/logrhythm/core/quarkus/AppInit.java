@@ -34,5 +34,4 @@ public class AppInit {
   void onStart(@Observes StartupEvent ev) {
     LOG.info("onStart");
   }
-
 }

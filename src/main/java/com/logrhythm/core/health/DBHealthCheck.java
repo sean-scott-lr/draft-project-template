@@ -1,6 +1,5 @@
 package com.logrhythm.core.health;
 
-import com.logrhythm.core.quarkus.AppInit;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.enterprise.context.ApplicationScoped;
@@ -21,7 +20,7 @@ public class DBHealthCheck implements HealthCheck {
   private DataSource dataSource;
 
   @Inject
-  public DBHealthCheck(DataSource datasource){
+  public DBHealthCheck(DataSource datasource) {
     this.dataSource = datasource;
     LOG.info("DBHealthCheck initialized");
   }
@@ -45,7 +44,7 @@ public class DBHealthCheck implements HealthCheck {
     }
   }
 
-  protected String getSqlStatement(){
+  protected String getSqlStatement() {
     return "select 1";
   }
 }

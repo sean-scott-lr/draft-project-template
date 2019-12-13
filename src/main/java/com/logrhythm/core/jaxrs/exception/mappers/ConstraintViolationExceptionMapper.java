@@ -23,8 +23,8 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 @ApplicationScoped
-//TODO: Its possible that this entire class could go away. ( or be greatly reduced )
-//https://github.com/quarkusio/quarkus/issues/5908
+// TODO: Its possible that this entire class could go away. ( or be greatly reduced )
+// https://github.com/quarkusio/quarkus/issues/5908
 
 public class ConstraintViolationExceptionMapper extends BaseExceptionMapper
     implements ExceptionMapper<ConstraintViolationException> {

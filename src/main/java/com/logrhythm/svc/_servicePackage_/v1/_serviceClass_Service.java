@@ -12,12 +12,15 @@ import javax.transaction.Transactional.TxType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 @Timed
 @DenyAll
 public class _serviceClass_Service {
 
+  private static Logger LOG = LoggerFactory.getLogger(_serviceClass_Service.class);
   private _entityClass_Dao _entityInstance_Dao;
 
   @Inject
@@ -28,11 +31,11 @@ public class _serviceClass_Service {
   /*Note: Method name ends up in validation message by default */
   /*Note: Parameter name ends up in validation message*/
   @Transactional(TxType.REQUIRED)
-  @RolesAllowed( "_entityEntitlement_-create")
+  @RolesAllowed("_entityEntitlement_-create")
   public _entityClass_ create_entityClass_(@Valid @NotNull _entityClass_ _entityInstance_) {
-     _entityInstance_.getId().setId(UUID.randomUUID().toString());
-     _entityInstance_Dao.persist(_entityInstance_);
-     _entityInstance_Dao.findByAge(_entityInstance_.getId(),30,null);
-     return _entityInstance_Dao.findById(_entityInstance_.getId());
+    _entityInstance_.getId().setId(UUID.randomUUID().toString());
+    _entityInstance_Dao.persist(_entityInstance_);
+    _entityInstance_Dao.findByAge(_entityInstance_.getId(), 30, null);
+    return _entityInstance_Dao.findById(_entityInstance_.getId());
   }
 }

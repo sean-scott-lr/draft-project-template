@@ -11,8 +11,9 @@ public class ThrowableExceptionMapper extends BaseExceptionMapper
     implements ExceptionMapper<Throwable> {
 
   private static Logger LOG = LoggerFactory.getLogger(ThrowableExceptionMapper.class);
+
   public Response toResponse(Throwable t) {
-    LOG.error("Unhandled Exception",t);
+    LOG.error("Unhandled Exception", t);
     return super.createResponse(t);
   }
 }

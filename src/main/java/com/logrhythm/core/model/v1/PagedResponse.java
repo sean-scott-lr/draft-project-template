@@ -2,8 +2,7 @@ package com.logrhythm.core.model.v1;
 
 import java.util.List;
 /** Standard response which contains multiple results */
-public class PagedResponse<ElementType, PagingType extends PaginationDetail>
-    extends Response {
+public class PagedResponse<ElementType, PagingType extends PaginationDetail> extends Response {
 
   private PagingType paging = null;
   private List<ElementType> content = null;

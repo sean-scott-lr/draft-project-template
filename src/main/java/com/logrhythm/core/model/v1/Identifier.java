@@ -11,46 +11,50 @@ import javax.ws.rs.PathParam;
 @Embeddable
 public class Identifier implements Serializable {
 
-  @Column(name = "id", nullable = false)
+  public static final String TENANT_ID = "tenantId";
+  public static final String ID = "id";
+  public static final String TENANT_URI_FRAGMENT = "tenants/{"+TENANT_ID+"}";
+  public static final String ID_URI_FRAGMENT = "{" + ID +"}";
   private String id;
-
-  @Column(name = "tenant_id", nullable = false)
-  @JsonIgnore
-  @PathParam("tenantId")
-  @NotNull
   private String tenantId;
 
-  public Identifier(String tenantId, String id){
+  /*
+  public Identifier(String tenantId, String id) {
     this.tenantId = tenantId;
     this.id = id;
   }
 
-  public Identifier(String tenantId){
-    this(tenantId, null );
-  }
+  public Identifier(String tenantId) {
+    this(tenantId, null);
+  }*/
 
-  public Identifier(){
-  }
+  public Identifier() {}
 
+  @Column(name = "id", nullable = false)
   public String getId() {
     return id;
   }
 
+  @PathParam(ID)
   public void setId(String id) {
     this.id = id;
   }
 
+  @Column(name = "tenant_id", nullable = false)
+  @NotNull
+  @JsonIgnore
   public String getTenantId() {
     return tenantId;
   }
 
+  @PathParam(TENANT_ID)
   public void setTenantId(String tenantId) {
     this.tenantId = tenantId;
   }
 
   @Override
-  public String toString(){
-    return "("+tenantId+","+id+")";
+  public String toString() {
+    return "(" + tenantId + "," + id + ")";
   }
 
   @Override
@@ -62,8 +66,7 @@ public class Identifier implements Serializable {
       return false;
     }
     Identifier that = (Identifier) o;
-    return Objects.equals(id, that.id) &&
-        Objects.equals(tenantId, that.tenantId);
+    return Objects.equals(id, that.id) && Objects.equals(tenantId, that.tenantId);
   }
 
   @Override

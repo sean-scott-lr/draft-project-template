@@ -20,7 +20,6 @@ import org.slf4j.MDC;
 @Provider
 public class LogRhythmRequestFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
-
   public static final String REQUEST_ID = "requestId";
   private Tracer tracer;
 
@@ -39,7 +38,7 @@ public class LogRhythmRequestFilter implements ContainerRequestFilter, Container
   public void filter(ContainerRequestContext req, ContainerResponseContext res) throws IOException {
 
     String requestId = (String) req.getProperty(REQUEST_ID);
-    decorateResponse(res,requestId);
+    decorateResponse(res, requestId);
   }
 
   private String establishRequestId(ContainerRequestContext req) {
@@ -49,13 +48,11 @@ public class LogRhythmRequestFilter implements ContainerRequestFilter, Container
     SpanContext ctx = s == null ? null : s.context();
 
     if (ctx != null && ctx instanceof JaegerSpanContext) {
-      //TODO: Fix this downcasting once Quarkus upgrades to Jaeger 0.35+
-      requestId =  Long.toHexString(((JaegerSpanContext)ctx).getSpanId());
-    }
-    else {
+      // TODO: Fix this downcasting once Quarkus upgrades to Jaeger 0.35+
+      requestId = Long.toHexString(((JaegerSpanContext) ctx).getSpanId());
+    } else {
       requestId = UUID.randomUUID().toString();
     }
-
 
     req.setProperty(REQUEST_ID, requestId);
 

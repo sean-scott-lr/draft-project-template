@@ -10,6 +10,7 @@
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <maven-git-code-format.version>1.31</maven-git-code-format.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus-plugin.version>1.1.0.CR1</quarkus-plugin.version>
@@ -114,7 +115,8 @@
       <artifactId>flogger-system-backend</artifactId>
       <version>0.4</version>
       <scope>runtime</scope>
-    </dependency><!--
+    </dependency>
+    <!--
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-logging-json</artifactId>
@@ -137,10 +139,7 @@
       <version>1.25.0</version>
     </dependency>
     -->
-
   </dependencies>
-
-
   <build>
     <!-- protoc compiler plugin -->
     <!--
@@ -178,7 +177,6 @@
           </systemProperties>
         </configuration>
       </plugin>
-
       <!-- Protoc Compiler Plugin -->
       <!--
       <plugin>
@@ -201,7 +199,37 @@
           </execution>
         </executions>
       </plugin> -->
-
+      <!-- Block in pre-commit if format doesn't match google-java standard -->
+      <plugin>
+        <groupId>com.cosium.code</groupId>
+        <artifactId>maven-git-code-format</artifactId>
+        <version>${maven-git-code-format.version}</version>
+        <executions>
+          <!-- On commit, format the modified java files -->
+          <execution>
+            <id>install-formatter-hook</id>
+            <goals>
+              <goal>install-hooks</goal>
+            </goals>
+          </execution>
+          <!-- On Maven verify phase, fail if any file
+          (including unmodified) is badly formatted -->
+          <execution>
+            <id>validate-code-format</id>
+            <goals>
+              <goal>validate-code-format</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <googleJavaFormatOptions>
+            <aosp>false</aosp>
+            <fixImportsOnly>false</fixImportsOnly>
+            <skipSortingImports>false</skipSortingImports>
+            <skipRemovingUnusedImports>false</skipRemovingUnusedImports>
+          </googleJavaFormatOptions>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <profiles>

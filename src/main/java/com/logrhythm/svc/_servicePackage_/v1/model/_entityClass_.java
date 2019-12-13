@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "_entityTableName_")
 public class _entityClass_ extends BaseModel {
 
-  //Please dont annotate fields, annotate the getters
+  // Please don't annotate fields, annotate the getters
   private String firstName;
   private String lastName;
   private Integer age;

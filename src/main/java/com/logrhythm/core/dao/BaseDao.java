@@ -33,7 +33,7 @@ public class BaseDao<EntityType> implements CrudDao<EntityType, Identifier> {
   @Override
   @Transactional(TxType.SUPPORTS)
   public EntityType findById(Identifier id) {
-    logger.atFinest().log("findById %s",id);
+    logger.atFinest().log("findById %s", id);
     return (EntityType) JpaOperations.findById(getPersistentClass(), id);
   }
 

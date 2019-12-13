@@ -13,8 +13,8 @@ public class Identifier implements Serializable {
 
   public static final String TENANT_ID = "tenantId";
   public static final String ID = "id";
-  public static final String TENANT_URI_FRAGMENT = "tenants/{"+TENANT_ID+"}";
-  public static final String ID_URI_FRAGMENT = "{" + ID +"}";
+  public static final String TENANT_URI_FRAGMENT = "tenants/{" + TENANT_ID + "}";
+  public static final String ID_URI_FRAGMENT = "{" + ID + "}";
   private String id;
   private String tenantId;
 

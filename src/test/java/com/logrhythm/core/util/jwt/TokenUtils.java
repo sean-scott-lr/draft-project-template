@@ -15,16 +15,13 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.eclipse.microprofile.jwt.Claims;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
 import org.jose4j.jwt.NumericDate;
 
-/**
- * Utilities for generating a JWT for testing
- */
+/** Utilities for generating a JWT for testing */
 public class TokenUtils {
 
   private TokenUtils() {
@@ -32,28 +29,31 @@ public class TokenUtils {
   }
 
   /**
-   * Utility method to generate a JWT string from a JSON resource file that is signed by the privateKey.pem
-   * test resource key, possibly with invalid fields.
+   * Utility method to generate a JWT string from a JSON resource file that is signed by the
+   * privateKey.pem test resource key, possibly with invalid fields.
    *
    * @param jsonResName - name of test resources file
    * @param timeClaims - used to return the exp, iat, auth_time claims
    * @return the JWT string
    * @throws Exception on parse failure
    */
-  public static String generateTokenString(String pkFile, String jsonResName, Map<String, Long> timeClaims)
-      throws Exception {
+  public static String generateTokenString(
+      String pkFile, String jsonResName, Map<String, Long> timeClaims) throws Exception {
     // Use the test private key associated with the test public key for a valid signature
     PrivateKey pk = readPrivateKey(pkFile);
     return generateTokenString(pk, pkFile, jsonResName, timeClaims);
   }
 
-  public static String generateTokenString(PrivateKey privateKey, String kid,
-      String jsonResName, Map<String, Long> timeClaims) throws Exception {
+  public static String generateTokenString(
+      PrivateKey privateKey, String kid, String jsonResName, Map<String, Long> timeClaims)
+      throws Exception {
 
     JwtClaims claims = JwtClaims.parse(readTokenContent(jsonResName));
     long currentTimeInSecs = currentTimeInSecs();
-    long exp = timeClaims != null && timeClaims.containsKey(Claims.exp.name())
-        ? timeClaims.get(Claims.exp.name()) : currentTimeInSecs + 300;
+    long exp =
+        timeClaims != null && timeClaims.containsKey(Claims.exp.name())
+            ? timeClaims.get(Claims.exp.name())
+            : currentTimeInSecs + 300;
 
     claims.setIssuedAt(NumericDate.fromSeconds(currentTimeInSecs));
     claims.setClaim(Claims.auth_time.name(), NumericDate.fromSeconds(currentTimeInSecs));
@@ -64,7 +64,6 @@ public class TokenUtils {
       System.out.printf("\tAdded claim: %s, value: %s\n", entry.getKey(), entry.getValue());
     }
     */
-
 
     JsonWebSignature jws = new JsonWebSignature();
     jws.setPayload(claims.toJson());
@@ -153,12 +152,9 @@ public class TokenUtils {
     return pem.trim();
   }
 
-  /**
-   * @return the current time in seconds since epoch
-   */
+  /** @return the current time in seconds since epoch */
   public static int currentTimeInSecs() {
     long currentTimeMS = System.currentTimeMillis();
     return (int) (currentTimeMS / 1000);
   }
-
 }

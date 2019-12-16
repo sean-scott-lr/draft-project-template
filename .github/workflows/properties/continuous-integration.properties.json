@@ -1,0 +1,6 @@
+{
+  "name": "Java CI",
+  "description": "Build and test a Java project",
+  "iconName": "java-ci",
+  "categories": ["Java"]
+}
